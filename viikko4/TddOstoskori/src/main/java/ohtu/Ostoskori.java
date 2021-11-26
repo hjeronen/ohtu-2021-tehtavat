@@ -31,12 +31,25 @@ public class Ostoskori {
         if (this.ostokset.isEmpty()) {
             return 0;
         }
-        return -1;
+        int hinta = 0;
+        for (Ostos o : this.ostokset) {
+            hinta += o.hinta();
+        }
+        return hinta;
     }
  
     public void lisaaTuote(Tuote lisattava) {
         // lisää tuotteen
-        this.ostokset.add(new Ostos(lisattava));
+        boolean onKorissa = false;
+        for (Ostos o : this.ostokset) {
+            if (o.tuotteenNimi().equals(lisattava.getNimi())) {
+                o.muutaLukumaaraa(1);
+                onKorissa = true;
+            }
+        }
+        if (!onKorissa) {
+            this.ostokset.add(new Ostos(lisattava));
+        }
     }
  
     public void poista(Tuote poistettava) {
