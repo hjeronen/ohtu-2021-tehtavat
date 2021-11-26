@@ -19,7 +19,11 @@ public class Ostoskori {
         if (this.ostokset.isEmpty()) {
             return 0;
         }
-        return -1;
+        int maara = 0;
+        for (Ostos o : this.ostokset) {
+            maara += o.lukumaara();
+        }
+        return maara;
     }
  
     public int hinta() {
@@ -32,6 +36,7 @@ public class Ostoskori {
  
     public void lisaaTuote(Tuote lisattava) {
         // lisää tuotteen
+        this.ostokset.add(new Ostos(lisattava));
     }
  
     public void poista(Tuote poistettava) {
