@@ -54,10 +54,17 @@ public class Ostoskori {
  
     public void poista(Tuote poistettava) {
         // poistaa tuotteen
+        Ostos ostos = null;
         for (Ostos o : this.ostokset) {
             if (o.tuotteenNimi().equals(poistettava.getNimi())) {
                 o.muutaLukumaaraa(-1);
+                if (o.lukumaara() == 0) {
+                    ostos = o;
+                }
             }
+        }
+        if (ostos != null) {
+            this.ostokset.remove(ostos);
         }
     }
  
