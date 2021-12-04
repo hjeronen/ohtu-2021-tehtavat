@@ -10,6 +10,7 @@ public class Nollaa extends Komento {
     private JTextField syotekentta;
     private JButton nollaa;
     private JButton undo;
+    private int edellinen;
     
     public Nollaa(JTextField tuloskentta, JTextField syotekentta, JButton nollaa, JButton undo, Sovelluslogiikka sovellus) {
         this.sovellus = sovellus;
@@ -17,10 +18,12 @@ public class Nollaa extends Komento {
         this.syotekentta = syotekentta;
         this.nollaa = nollaa;
         this.undo = undo;
+        this.edellinen = 0;
     }
     
     @Override
     public void suorita() {
+        this.edellinen = this.sovellus.tulos();
         sovellus.nollaa();
         this.tuloskentta.setText("");
         nollaa.setEnabled(false);
@@ -28,6 +31,7 @@ public class Nollaa extends Komento {
     
     @Override
     public void peru() {
-        
+        this.sovellus.plus(this.edellinen);
+        this.tuloskentta.setText("" + this.sovellus.tulos());
     }
 }

@@ -10,6 +10,7 @@ public class Summa extends Komento {
     private JTextField syotekentta;
     private JButton nollaa;
     private JButton undo;
+    private int edellinen;
     
     public Summa(JTextField tuloskentta, JTextField syotekentta, JButton nollaa, JButton undo, Sovelluslogiikka sovellus) {
         this.sovellus = sovellus;
@@ -17,6 +18,7 @@ public class Summa extends Komento {
         this.syotekentta = syotekentta;
         this.nollaa = nollaa;
         this.undo = undo;
+        this.edellinen = 0;
     }
     
     @Override
@@ -25,6 +27,7 @@ public class Summa extends Komento {
         int luku = 0;
         if (!syote.isEmpty()) {
             luku = Integer.parseInt(syote);
+            this.edellinen = luku;
         }
         this.sovellus.plus(luku);
         
@@ -32,15 +35,17 @@ public class Summa extends Komento {
         this.syotekentta.setText("");
         this.tuloskentta.setText("" + tulos);
         if (tulos == 0) {
-            nollaa.setEnabled(false);
+            this.nollaa.setEnabled(false);
         } else {
-            nollaa.setEnabled(true);
+            this.nollaa.setEnabled(true);
         }
     }
     
     @Override
     public void peru() {
-        
+        this.sovellus.miinus(this.edellinen);
+        this.tuloskentta.setText("" + this.sovellus.tulos());
+        this.edellinen = 0;
     }
     
 }

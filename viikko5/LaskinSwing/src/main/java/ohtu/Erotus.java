@@ -10,6 +10,7 @@ public class Erotus extends Komento {
     private JTextField syotekentta;
     private JButton nollaa;
     private JButton undo;
+    private int edellinen;
     
     public Erotus(JTextField tuloskentta, JTextField syotekentta, JButton nollaa, JButton undo, Sovelluslogiikka sovellus) {
         this.sovellus = sovellus;
@@ -17,6 +18,7 @@ public class Erotus extends Komento {
         this.syotekentta = syotekentta;
         this.nollaa = nollaa;
         this.undo = undo;
+        this.edellinen = 0;
     }
     
     @Override
@@ -25,6 +27,7 @@ public class Erotus extends Komento {
         int luku = 0;
         if (!syote.isEmpty()) {
             luku = Integer.parseInt(syote);
+            this.edellinen = luku;
         }
         this.sovellus.miinus(luku);
         
@@ -40,6 +43,8 @@ public class Erotus extends Komento {
     
     @Override
     public void peru() {
-        
+        this.sovellus.plus(this.edellinen);
+        this.tuloskentta.setText("" + this.sovellus.tulos());
+        this.edellinen = 0;
     }
 }

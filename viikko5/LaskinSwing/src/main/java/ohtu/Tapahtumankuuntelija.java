@@ -11,6 +11,7 @@ public class Tapahtumankuuntelija implements ActionListener {
     private JButton undo;
     private Sovelluslogiikka sovellus;
     private HashMap<JButton, Komento> komennot;
+    private Komento edellinen = null;
 
     public Tapahtumankuuntelija(JButton plus, JButton miinus, JButton nollaa, JButton undo, JTextField tuloskentta, JTextField syotekentta) {
         this.undo = undo;
@@ -23,8 +24,16 @@ public class Tapahtumankuuntelija implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        Komento komento = this.komennot.get((JButton) ae.getSource());
-        komento.suorita();
+        if (ae.getSource() != undo) {
+            Komento komento = this.komennot.get((JButton) ae.getSource());
+            komento.suorita();
+            this.edellinen = komento;
+            undo.setEnabled(true);
+        } else {
+            this.edellinen.peru();
+            this.edellinen = null;
+            undo.setEnabled(false);
+        }
     }
 
 }
