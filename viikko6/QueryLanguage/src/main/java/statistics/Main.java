@@ -41,18 +41,32 @@ public class Main {
 
         QueryBuilder query = new QueryBuilder();
         Matcher m6 = query.build();
-
-        QueryBuilder query2 = new QueryBuilder();
-
-        Matcher m7 = query2.playsIn("NYR").build();
-
-        QueryBuilder query3 = new QueryBuilder();
-
-        Matcher m8 = query3.playsIn("NYR")
+        
+        query = new QueryBuilder();
+        
+        Matcher m7 = query.playsIn("NYR").build();
+        
+        query = new QueryBuilder();
+        
+        Matcher m8 = query.playsIn("NYR")
                 .hasAtLeast(5, "goals")
                 .hasFewerThan(10, "goals").build();
+        
+        query = new QueryBuilder();
+        
+        Matcher m9 = query.playsIn("PHI")
+                .hasAtLeast(10, "assists")
+                .hasFewerThan(5, "goals").build();
+        
+        query = new QueryBuilder();
 
-        for (Player player : stats.matches(m8)) {
+        Matcher m10 = query.playsIn("EDM")
+                .hasAtLeast(40, "points").build();
+        
+
+        Matcher m11 = query.oneOf(m9, m10).build();
+
+        for (Player player : stats.matches(m11)) {
             System.out.println(player);
         }
     }
