@@ -23,10 +23,23 @@ public class Main {
                 new HasFewerThan(1, "goals"),
                 new PlaysIn("NYR")
         );
-        
+
         System.out.println(stats.matches(new All()).size());
 
-        for (Player player : stats.matches(m3)) {
+        Matcher m4 = new Or(new HasAtLeast(30, "goals"),
+                new HasAtLeast(50, "assists")
+        );
+
+        Matcher m5 = new And(
+                new HasAtLeast(40, "points"),
+                new Or(
+                        new PlaysIn("NYR"),
+                        new PlaysIn("NYI"),
+                        new PlaysIn("BOS")
+                )
+        );
+
+        for (Player player : stats.matches(m5)) {
             System.out.println(player);
         }
     }
