@@ -39,7 +39,20 @@ public class Main {
                 )
         );
 
-        for (Player player : stats.matches(m5)) {
+        QueryBuilder query = new QueryBuilder();
+        Matcher m6 = query.build();
+
+        QueryBuilder query2 = new QueryBuilder();
+
+        Matcher m7 = query2.playsIn("NYR").build();
+
+        QueryBuilder query3 = new QueryBuilder();
+
+        Matcher m8 = query3.playsIn("NYR")
+                .hasAtLeast(5, "goals")
+                .hasFewerThan(10, "goals").build();
+
+        for (Player player : stats.matches(m8)) {
             System.out.println(player);
         }
     }
